@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ACADEMIC HUNTERS FINAL 10X - ONE COLUMN - FIXED</title><meta name="theme-color" content="#000000">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{display:flex;flex-direction:column;height:100vh;background:#111b21;overflow:hidden}
+body.dark{background:#000}.L{width:100%;height:100vh;background:#fff;display:flex;flex-direction:column}
+.H{background:#008069;color:#fff;padding:8px;display:flex;align-items:center;gap:6px;justify-content:space-between}.logo{width:34px;height:34px;border-radius:50%;background:conic-gradient(black 0deg 120deg,#FFCC00 120deg 240deg,#D90000 240deg 360deg);display:grid;place-items:center;color:#fff;font-weight:900;font-size:12px;border:2px solid #fff}
+.tabs{display:flex;background:#008069;overflow:auto}.tabs button{flex:1;padding:8px;background:none;border:none;color:#fff8;border-bottom:3px solid transparent;font-weight:bold;font-size:8px;cursor:pointer;white-space:nowrap}.tabs button.a{color:#fff;border-bottom:3px solid #FFCC00;background:#006a56}
+.list{flex:1;overflow:auto}.it{display:flex;gap:7px;padding:8px;border-bottom:1px solid #eee;cursor:pointer;align-items:center}.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:bold;flex-shrink:0;overflow:hidden}.av img{width:100%;height:100%;object-fit:cover}
+.R{width:100%;height:100vh;display:flex;flex-direction:column;background:#efeae2;position:fixed;inset:0;z-index:90;display:none}.R.open{display:flex}.HT{background:#f0f2f5;padding:8px;display:flex;justify-content:space-between;align-items:center}
+.CH{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:6px}.m{max-width:84%;padding:6px 9px;border-radius:8px;font-size:12px;box-shadow:0 1px 1px #0002;white-space:pre-wrap}.mo{background:#fff;align-self:flex-start}.mm{background:#d9fdd3;align-self:flex-end}.mai{background:#fff;border-left:4px solid #008069;align-self:flex-start}
+.IB{background:#f0f2f5;padding:6px;display:flex;gap:5px}.IB input{flex:1;padding:9px 12px;border-radius:22px;border:none;outline:none}.b{background:#008069;color:#fff;border:none;padding:7px 10px;border-radius:22px;font-weight:bold;cursor:pointer;font-size:11px}.by{background:#FFCC00;color:#000;border:none;padding:4px 7px;border-radius:20px;font-weight:bold;font-size:8px;cursor:pointer}
+.think{font-size:9px;color:#008069;background:#e7fce3;padding:3px 7px;display:none}.callS{position:fixed;inset:0;background:#111b21;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:99999;color:#fff}.callS.open{display:flex}video{width:90%;max-height:30vh;background:#000;border-radius:10px;margin-top:6px}
+.shareBar{background:linear-gradient(90deg,#000,#FFCC00,#D90000);color:#fff;padding:3px 6px;display:flex;justify-content:space-between;font-size:8px;font-weight:bold}
+.streakBar{background:linear-gradient(90deg,#000,#FF4500,#FFCC00);color:#fff;padding:3px 6px;display:flex;justify-content:space-between;font-size:8px;font-weight:bold}
+.login{position:fixed;inset:0;background:linear-gradient(180deg,#008069,#111b21);z-index:10000;display:flex;align-items:center;justify-content:center;padding:12px}.loginBox{background:#fff;width:100%;max-width:340px;border-radius:12px;padding:14px}.loginBox input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:6px}
+.sampleBox{background:#fff;border-radius:8px;padding:8px;margin-bottom:6px;border:1px solid #ddd}.uploadArea{border:2px dashed #008069;border-radius:10px;padding:8px;text-align:center;background:#e7fce3;cursor:pointer;margin-bottom:6px}
+.fire{animation:fire 0.6s infinite alternate;display:inline-block}@keyframes fire{0%{transform:scale(1)}100%{transform:scale(1.3)}}
+.fireball{position:fixed;top:50%;left:50%;font-size:60px;z-index:999999;pointer-events:none;animation:ball 1.2s ease-out forwards}@keyframes ball{0%{transform:translate(-50%,-50%) scale(0)}100%{transform:translate(-50%,-200%) scale(0);opacity:0}}
+.searchBar{display:flex;gap:4px;padding:4px;background:#f0f2f5}.filterBar{display:flex;gap:3px;padding:3px;overflow:auto;background:#f0f2f5}
+.reader{position:fixed;inset:0;z-index:99999;background:#fff;display:flex;flex-direction:column}
+.backBtn{background:#000;color:#fff;border:none;padding:5px 10px;border-radius:15px;font-size:10px;cursor:pointer}
+</style></head><body>
+<div class="login" id="loginScreen"><div class="loginBox"><div style="display:flex;justify-content:center"><div class="logo" style="width:55px;height:55px;font-size:22px">AH</div></div><h3 style="text-align:center">ACADEMIC HUNTERS 10X 🇺🇬</h3><p style="text-align:center;font-size:9px;color:#666">ONE COLUMN • Read FREE • MTN/Airtel • Pay to Download</p>
+<div id="step1">
+<input id="phone" placeholder="Enter your number e.g. 0771234567 or 0701234567" type="tel">
+<input id="name" placeholder="Your Full Name e.g. Ocet Robert">
+<input type="file" id="myPicInput" accept="image/*"><small style="font-size:8px;color:#666">Optional profile pic</small>
+<input id="statusText" placeholder="Status e.g. My future my hands">
+<button class="b" style="width:100%;margin-top:6px;padding:10px" onclick="sendOTP()">Next ➤ OTP</button>
+<p style="font-size:7px;color:#888;margin-top:4px">✅ Accepts MTN 077/078/076 and Airtel 070/075/074</p>
+</div>
+<div id="step2" style="display:none"><p style="font-size:9px">OTP sent to <b id="otpPhone"></b><br>Demo OTP: <b>123456</b></p><input id="otp" placeholder="Enter 123456"><button class="b" style="width:100%;margin-top:6px;padding:10px" onclick="verifyOTP()">Verify ✅</button><button class="by" style="width:100%;margin-top:4px" onclick="backStep()">Back</button></div>
+</div></div>
+
+<div class="L" id="leftPanel"><div class="H"><div style="display:flex;align-items:center;gap:5px"><div class="logo">AH</div><div><span style="font-size:10px">ACADEMIC HUNTERS 10X</span><br><small style="font-size:6px">ONE COLUMN • <span id="myNameTop"></span></small></div></div><div style="display:flex;gap:3px;align-items:center"><span id="earn" style="background:#FFCC00;color:#000;padding:2px 6px;border-radius:20px;font-size:8px">0 UGX</span><button class="by" style="background:#fff;color:#000;padding:2px 5px" onclick="toggleDark()">🌙</button><div class="av" id="myTopAva" style="width:20px;height:20px;background:#000;font-size:8px">?</div></div></div>
+<div class="shareBar"><span>🎓 Share & Earn 500</span><span id="onlineStatus" style="background:#00b894;padding:1px 5px;border-radius:10px">● Online</span><button class="by" style="background:#fff" onclick="shareHunter()">SHARE ↗️</button></div>
+<div class="streakBar"><span id="streakText">🔥 1 Day</span><span id="fireCount">🔥 0</span><span id="studiedCount">📚 0 Studied</span><button class="by" style="background:#fff;color:#000;padding:2px 4px" onclick="claimFireball()">Claim 🔥</button></div>
+<div class="tabs"><button class="a" onclick="tab('ai',this)">23 AIs</button><button onclick="tab('friends',this)">Friends</button><button onclick="tab('notes',this)">Notes 📚</button><button onclick="tab('leader',this)">🏆 Top</button><button onclick="tab('admin',this)">Me</button></div>
+<div class="searchBar" id="searchBar" style="display:none"><input id="searchInput" placeholder="🔍 Search notes e.g. Math S4..." style="flex:1;padding:5px 8px;border-radius:15px;border:1px solid #ccc;font-size:10px" oninput="filterNotes()"><button class="by" onclick="document.getElementById('searchInput').value='';filterNotes()">Clear</button></div>
+<div class="filterBar" id="filterBar" style="display:none"><button class="by a" onclick="setFilter('all',this)">All</button><button class="by" onclick="setFilter('S1',this)">S1</button><button class="by" onclick="setFilter('S2',this)">S2</button><button class="by" onclick="setFilter('S3',this)">S3</button><button class="by" onclick="setFilter('S4',this)">S4</button><button class="by" onclick="setFilter('Math',this)">Math</button><button class="by" onclick="setFilter('Biology',this)">Bio</button><button class="by" onclick="setFilter('Chemistry',this)">Chem</button><button class="by" onclick="setFilter('CRE',this)">CRE</button><button class="by" onclick="setFilter('History',this)">Hist</button><button class="by" onclick="setFilter('bookmarks',this)">⭐ Saved</button></div>
+<div class="list" id="list"></div>
+<div style="padding:3px;background:#f0f2f5;font-size:6px;text-align:center"><span id="loggedPhone">-</span> | <span id="loc">Kampala</span> | <span onclick="logout()" style="color:red;cursor:pointer">Logout</span> | <span onclick="installApp()" style="color:green;cursor:pointer">📲 Install</span></div></div>
+
+<div class="R" id="rightPanel"><div class="HT"><div style="display:flex;gap:5px;align-items:center"><button class="backBtn" onclick="closeChat()">⬅️ Back</button><div class="av" id="av" style="background:#e84393">B</div><div><b id="title" style="font-size:10px">Birungi Alice</b><br><small id="sub" style="color:green;font-size:8px">● Online</small></div></div><div style="display:flex;gap:2px"><button class="b" style="background:#075e54;padding:4px 7px" onclick="makeCall(false)">📞</button><button class="b" style="background:#075e54;padding:4px 7px" onclick="makeCall(true)">📹</button></div></div><div class="think" id="think">💭 Thinking...</div><div class="CH" id="chat"></div><div class="IB"><input id="inp" placeholder="Type..." onkeypress="if(event.key==='Enter')send()"><button class="b" onclick="send()">➤</button></div></div>
+
+<div class="callS" id="callScreen"><h3 id="callName">Calling...</h3><small id="callStat">DATA 🇺🇬</small><video id="localV" autoplay muted playsinline></video><video id="remoteV" autoplay playsinline></video><div style="display:flex;gap:8px;margin-top:6px"><button class="b" style="background:red;padding:8px 16px;border-radius:30px" onclick="endCall()">End</button><button class="b" style="background:#54656f" onclick="toggleMute()">Mute</button></div></div>
+
+<script>
+const ADMIN_PHONES=["770816940"];function isAdminPhone(p){let c=(p||'').replace(/[^0-9]/g,'').slice(-9);return ADMIN_PHONES.includes(c);}
+let earn=parseInt(localStorage.getItem('earn')||'0');document.getElementById('earn').innerText=earn+' UGX';
+let friends=JSON.parse(localStorage.getItem('ah_friends')||'[]');
+let bookmarks=JSON.parse(localStorage.getItem('ah_bookmarks')||'[]');
+let studied=JSON.parse(localStorage.getItem('ah_studied')||'[]');
+let likes=JSON.parse(localStorage.getItem('ah_likes')||'{}');
+let comments=JSON.parse(localStorage.getItem('ah_comments')||'{}');
+let currentFilter='all';let currentSearch='';
+let notesText=JSON.parse(localStorage.getItem('ah_notes_text')||'[]');
+let momoConfig=JSON.parse(localStorage.getItem('ah_momo')||'{"user":"","key":"","sub":"","disbSub":""}');
+let myLoc='Kampala';if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{myLoc=p.coords.latitude.toFixed(3)+','+p.coords.longitude.toFixed(3);document.getElementById('loc').innerText=myLoc;});}
+let myUser=JSON.parse(localStorage.getItem('ah_user')||'null');let stream=null,curMode='ai';
+if(myUser){document.getElementById('loginScreen').style.display='none';showUser();}
+function sendOTP(){
+  let phone=document.getElementById('phone').value.trim();
+  let name=document.getElementById('name').value.trim()||'Hunter';
+  if(phone.length<10) return alert('Enter valid MTN or Airtel number e.g. 077... or 070...');
+  // Validate Uganda format - accepts 07x, 076, 078, 070, 075, 074
+  let clean=phone.replace(/[^0-9]/g,'');
+  if(clean.length===9) clean='0'+clean;
+  if(!/^(077|078|076|070|075|074|039|041)\d{7}$/.test(clean) && clean.length!==10){
+    if(clean.length<10) return alert('Number too short. Use 10 digits like 0771234567');
+  }
+  document.getElementById('otpPhone').innerText=phone;
+  document.getElementById('step1').style.display='none';
+  document.getElementById('step2').style.display='block';
+  window.tempUser={phone:clean,name,status:document.getElementById('statusText').value||'Hunting kati',pic:''};
+  let file=document.getElementById('myPicInput').files[0];
+  if(file){let r=new FileReader();r.onload=e=>{window.tempUser.pic=e.target.result;};r.readAsDataURL(file);}
+  if('Notification' in window) Notification.requestPermission();
+}
+function backStep(){document.getElementById('step1').style.display='block';document.getElementById('step2').style.display='none';}
+function verifyOTP(){if(document.getElementById('otp').value.trim()!=='123456')return alert('Use 123456 for demo');myUser=window.tempUser;myUser.id=Date.now();localStorage.setItem('ah_user',JSON.stringify(myUser));document.getElementById('loginScreen').style.display='none';showUser();}
+function showUser(){document.getElementById('loggedPhone').innerText=myUser.phone;document.getElementById('myNameTop').innerText='- '+myUser.name;document.getElementById('myTopAva').innerHTML=myUser.pic?'<img src="'+myUser.pic+'">':myUser.name.slice(0,2);document.getElementById('studiedCount').innerText='📚 '+studied.length+' Studied';}
+function logout(){if(confirm('Logout?')){localStorage.removeItem('ah_user');location.reload();}}
+function notifyMe(t,b){if('Notification' in window && Notification.permission==='granted'){new Notification(t,{body:b});}}
+function toggleDark(){document.body.classList.toggle('dark');localStorage.setItem('ah_dark',document.body.classList.contains('dark'));}
+if(localStorage.getItem('ah_dark')==='true') document.body.classList.add('dark');
+let db;let request=indexedDB.open('AHNotesDB',2);request.onupgradeneeded=e=>{let d=e.target.result;if(!d.objectStoreNames.contains('files')) d.createObjectStore('files',{keyPath:'id'});};request.onsuccess=e=>{db=e.target.result;loadNotes();};request.onerror=()=>{loadNotes();};
+function loadNotes(){
+  let local=JSON.parse(localStorage.getItem('ah_notes_text')||'[]');
+  if(!db){window.allNotes=local.length?local:[...notesText];renderNotesFixed();return;}
+  let tx=db.transaction('files','readonly');let store=tx.objectStore('files');let getAll=store.getAll();
+  getAll.onsuccess=()=>{
+    let files=getAll.result||[];
+    let merged=[...local,...files];
+    let map={};merged.forEach(n=>{map[n.id]=n;});
+    window.allNotes=Object.values(map);
+    if(window.allNotes.length===0) window.allNotes=[...notesText];
+    currentFilter='all';currentSearch='';
+    window.allNotes.sort((a,b)=>(b.id||0)-(a.id||0));
+    renderNotesFixed();
+  };
+  getAll.onerror=()=>{window.allNotes=local.length?local:[...notesText];renderNotesFixed();}
+}
+const AIs=[{id:1,n:"Birungi Alice",s:"SUPER Advisor",a:"B",c:"#e84393",p:"Birungi Alice super advisor."},{id:2,n:"Ocet Robert",s:"Physics Main",a:"O",c:"#0984e3",p:"Ocet Robert main."},{id:3,n:"Akandwanaho Godfrey",s:"English",a:"A",c:"#6c5ce7",p:"English."},{id:4,n:"Odinga George",s:"Biology",a:"O",c:"#00b894",p:"Biology."},{id:5,n:"Madam Atim Faith",s:"Chemistry",a:"F",c:"#fdcb6e",p:"Chemistry."},{id:6,n:"Mr Okello Moses",s:"Math",a:"M",c:"#e17055",p:"Math."},{id:7,n:"Madam Auma Brenda",s:"History",a:"B",c:"#d63031",p:"History."},{id:8,n:"Mr Ojok Patrick",s:"Geography",a:"P",c:"#00cec9",p:"Geography."},{id:9,n:"Madam Adong Sarah",s:"CRE",a:"S",c:"#fbbf24",p:"CRE."},{id:10,n:"Mr Ocen Denis",s:"Commerce ICT",a:"D",c:"#2d3436",p:"Commerce ICT."},{id:11,n:"Kica Devish",s:"Calculus",a:"K",c:"#6c5ce7",p:"Calculus."},{id:12,n:"Master Paul",s:"Chemistry Org",a:"M",c:"#e17055",p:"Organic."},{id:13,n:"Kato James",s:"Geography",a:"J",c:"#00b894",p:"Geography."},{id:14,n:"Madam Nulu",s:"History",a:"N",c:"#d63031",p:"History."},{id:15,n:"Tumusiime Joy",s:"English Gram",a:"J",c:"#0984e3",p:"Grammar."},{id:16,n:"Ssempala John",s:"Physics",a:"J",c:"#0984e3",p:"Electricity."},{id:17,n:"Nakato Grace",s:"Biology",a:"G",c:"#00b894",p:"Genetics."},{id:18,n:"Opira Samuel",s:"CRE",a:"O",c:"#fbbf24",p:"Ethics."},{id:19,n:"Aber Lillian",s:"Commerce",a:"L",c:"#2d3436",p:"Trade."},{id:20,n:"Akena Kevin",s:"ICT",a:"K",c:"#2d3436",p:"Coding."},{id:21,n:"Birungi Emma",s:"Agriculture",a:"E",c:"#00b894",p:"Agriculture."},{id:22,n:"Opiyo Mark",s:"Entrepreneurship",a:"M",c:"#FFCC00",p:"Entrepreneurship."},{id:23,n:"Adok Faith",s:"Luganda",a:"A",c:"#e84393",p:"Luganda."}];
+let cur=AIs[0],chats={};AIs.forEach(a=>{chats[a.id]=[{f:'ai',t:`Hi ${myUser?myUser.name:'Hunter'}! I am ${a.n}. 🇺🇬`}];});
+function renderAI(){document.getElementById('searchBar').style.display='none';document.getElementById('filterBar').style.display='none';let h='';AIs.forEach(a=>{h+=`<div class=it onclick="openA(${a.id})"><div class=av style="background:${a.c}">${a.a}</div><div style="flex:1"><b style="font-size:10px">${a.n}</b><br><small style="font-size:8px;color:#666">${a.s}</small></div><span class=by>${a.id==2?'HUNTER':'LIVE'}</span></div>`});document.getElementById('list').innerHTML=h;}
+function renderFriends(){document.getElementById('searchBar').style.display='none';document.getElementById('filterBar').style.display='none';let h=`<div style="padding:5px"><input id="fn" placeholder="Friend Name" style="width:100%;padding:5px;border-radius:6px;border:1px solid #ccc;margin-bottom:2px"><input id="fp" placeholder="Friend Phone 07..." style="width:100%;padding:5px;border-radius:6px;border:1px solid #ccc;margin-bottom:2px"><input id="fl" placeholder="Location" style="width:100%;padding:5px;border-radius:6px;border:1px solid #ccc"><input type="file" id="fPic" accept="image/*" style="margin-top:2px"><button class=b style="width:100%;margin-top:2px" onclick="addFriend()">+ Add Friend</button><button class=b style="width:100%;margin-top:2px;background:#25d366" onclick="createGroup()">+ Group</button></div>`;friends.forEach((f,i)=>{h+=`<div class=it onclick="openFriend(${i})"><div class=av style="background:#075e54">${f.pic?'<img src="'+f.pic+'">':f.name.slice(0,2)}</div><div style="flex:1"><b style="font-size:10px">${f.name} ${f.isGroup?'👥':''}</b><br><small style="font-size:8px">${f.loc} • ${f.phone}</small></div><span class=by onclick="event.stopPropagation();friendCall(${i},false)">📞</span><span class=by style="margin-left:2px" onclick="event.stopPropagation();friendCall(${i},true)">📹</span></div>`});document.getElementById('list').innerHTML=h;}
+function renderLeader(){document.getElementById('searchBar').style.display='none';document.getElementById('filterBar').style.display='none';let topHunters=[{name:myUser?.name||'You',fire:fireballs,earn:earn,notes:(window.allNotes||[]).length},{name:'Birungi Alice',fire:420,earn:12500,notes:12},{name:'Ocet Robert',fire:380,earn:9800,notes:15},{name:'Kica Devish',fire:290,earn:7500,notes:8}].sort((a,b)=>b.fire-a.fire);let h=`<div style="padding:8px"><h3 style="text-align:center">🏆 Top Hunters 🔥</h3><div style="background:linear-gradient(90deg,#FFD700,#FFA500);padding:8px;border-radius:8px;text-align:center;margin-top:6px"><b>👑 ${topHunters[0].name}</b><br><small>🔥 ${topHunters[0].fire} • ${topHunters[0].earn} UGX • 📚 ${topHunters[0].notes}</small></div>`;topHunters.forEach((t,i)=>{h+=`<div class=it><div class=av style="background:${i==0?'gold':i==1?'silver':i==2?'#cd7f32':'#008069'}">${i+1}</div><div style="flex:1"><b style="font-size:10px">${t.name}</b><br><small style="font-size:8px">🔥 ${t.fire} • 💰 ${t.earn} UGX</small></div><span class=by>${i==0?'👑':i==1?'🥈':i==2?'🥉':'🔥'}</span></div>`});h+=`</div>`;document.getElementById('list').innerHTML=h;}
+function setFilter(f,btn){currentFilter=f;document.querySelectorAll('.filterBar button').forEach(b=>b.classList.remove('a'));btn.classList.add('a');renderNotesFixed();}
+function filterNotes(){currentSearch=document.getElementById('searchInput').value.toLowerCase();renderNotesFixed();}
+function renderNotesFixed(){
+  document.getElementById('searchBar').style.display='flex';document.getElementById('filterBar').style.display='flex';
+  let all=window.allNotes||notesText||[];
+  let filtered=all.filter(n=>{
+    let matchSearch=!currentSearch || n.t.toLowerCase().includes(currentSearch) || (n.c||'').toLowerCase().includes(currentSearch);
+    let matchFilter=currentFilter==='all' || (currentFilter==='bookmarks' && bookmarks.includes(n.id)) || n.t.toLowerCase().includes(currentFilter.toLowerCase());
+    return matchSearch && matchFilter;
+  });
+  filtered.sort((a,b)=>(b.id||0)-(a.id||0));
+  let h=`<div style="padding:5px"><div class="uploadArea" onclick="document.getElementById('noteFile').click()">📤 <b>TAP TO UPLOAD REAL NOTES</b><br><small>PDF/Image/DOC - Max 15MB - Read FREE inside app</small><input type="file" id="noteFile" hidden accept=".pdf,.doc,.docx,.txt,image/*" onchange="uploadNote(this)"><div style="margin-top:4px"><input id="noteTitle" placeholder="Title e.g. Math S4 Quadratic" style="width:100%;padding:5px;border-radius:6px;border:1px solid #ccc"><input id="noteClass" placeholder="Class e.g. S4 Math" style="width:100%;padding:5px;border-radius:6px;border:1px solid #ccc;margin-top:2px"><textarea id="noteContent" placeholder="Description (optional)" style="width:100%;padding:5px;border-radius:6px;border:1px solid #ccc;margin-top:2px;height:40px"></textarea></div><button class=b style="width:100%;margin-top:3px" onclick="saveTextNote()">+ Save Text Note</button></div></div>`;
+  if(filtered.length===0){h+=`<div style="padding:20px;text-align:center;color:#666"><b>No notes found</b><br><small>Upload PDF/Image above - it will appear here instantly</small><br><br><button class=b onclick="localStorage.clear();indexedDB.deleteDatabase('AHNotesDB');location.reload()" style="background:red">🗑️ Clear All</button></div>`;}
+  filtered.forEach((n,i)=>{
+    let realIndex=(window.allNotes||[]).indexOf(n);
+    let isHot=n.hot||n.views>2;let fireIcon=isHot?'<span class="fire">🔥</span>':'';
+    let liked=likes[n.id];let bookmarked=bookmarks.includes(n.id);let isStudied=studied.includes(n.id);
+    let hasFile=n.file?'📎':'📝';let comCount=(comments[n.id]||[]).length;
+    let previewImg=n.file&&n.file.startsWith('data:image')?`<br><img src="${n.file}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;margin-top:4px">`:'';
+    h+=`<div class="sampleBox" style="${isHot?'border:2px solid #FF4500;background:#fff5e6':''} ${isStudied?'border-left:4px solid #00b894':''}"><b>${fireIcon} ${n.t} ${isStudied?'✅':''}</b> <small style="color:#666">- ${hasFile} ${n.type||''} • 👁️ ${n.views||0} • ❤️ ${likes[n.id]||0}</small><br><small style="color:#008069">${n.sample||''}</small>${previewImg}
+    <div style="display:flex;gap:2px;margin-top:3px;flex-wrap:wrap">
+      <button class=b style="background:#000;padding:4px 8px;font-size:9px" onclick="readFull(${realIndex})">📖 Read FREE</button>
+      <button class=b style="background:${n.downloadUnlocked?'#00b894':'linear-gradient(90deg,#FF4500,#FFCC00)'};color:${n.downloadUnlocked?'#fff':'#000'};padding:4px 8px;font-size:9px" onclick="payForDownload(${realIndex})">${n.downloadUnlocked?'✅ Download':'💾 Download '+n.price+' UGX'}</button>
+      <button class=by style="background:${liked?'#ff6b6b':'#eee'}" onclick="likeNote(${n.id})">❤️ ${likes[n.id]||0}</button>
+      <button class=by style="background:${bookmarked?'#FFCC00':'#eee'}" onclick="bookmarkNote(${n.id})">${bookmarked?'⭐ Saved':'⭐ Save'}</button>
+    </div>
+    <div style="display:flex;gap:2px;margin-top:3px"><button class=by onclick="shareNote(${realIndex})">↗️ Share</button><button class=by style="background:#ffcccc" onclick="deleteNoteFixed(${realIndex})">🗑️</button></div>
+    </div>`;
+  });
+  document.getElementById('list').innerHTML=h;
+}
+function likeNote(id){likes[id]=(likes[id]||0)+1;localStorage.setItem('ah_likes',JSON.stringify(likes));renderNotesFixed();showFireball();}
+function bookmarkNote(id){if(bookmarks.includes(id)){bookmarks=bookmarks.filter(b=>b!==id);}else{bookmarks.push(id);}localStorage.setItem('ah_bookmarks',JSON.stringify(bookmarks));renderNotesFixed();}
+function uploadNote(input){
+  let file=input.files[0];if(!file)return;
+  if(file.size>15*1024*1024)return alert('Too big! Max 15MB');
+  let title=document.getElementById('noteTitle').value.trim()||file.name.replace(/\.[^/.]+$/,'');
+  let cls=document.getElementById('noteClass').value.trim();
+  let sample=document.getElementById('noteContent').value.trim()||file.name+' - Tap Read FREE to view';
+  let reader=new FileReader();
+  reader.onload=e=>{
+    let isImg=file.type.includes('image');
+    let content=isImg?`📸 Image: ${file.name}`:`📄 ${file.name} (${Math.round(file.size/1024)}KB)`;
+    let note={id:Date.now(),t:(cls?cls+' - ':'')+title,c:content,sample:sample,price:1000,file:e.target.result,fileName:file.name,downloadUnlocked:false,views:0,hot:false,type:isImg?'image':file.type.includes('pdf')?'pdf':'doc'};
+    if(db){let tx=db.transaction('files','readwrite');tx.objectStore('files').put(note);tx.oncomplete=()=>{window.allNotes=[note,...(window.allNotes||[])];window.allNotes.sort((a,b)=>(b.id||0)-(a.id||0));renderNotesFixed();alert('✅ UPLOADED! '+file.name+'\nNow tap 📖 Read FREE - you will see full file!');};}
+    else{notesText.unshift(note);localStorage.setItem('ah_notes_text',JSON.stringify(notesText));window.allNotes=notesText;renderNotesFixed();}
+  };
+  reader.readAsDataURL(file);
+}
+function readFull(i){
+  let n=(window.allNotes||[])[i];if(!n)return;
+  let old=document.getElementById('readerModal');if(old) old.remove();
+  n.views=(n.views||0)+1;if(n.views>2)n.hot=true;
+  let modal=document.createElement('div');modal.id='readerModal';modal.className='reader';modal.style.cssText='position:fixed;inset:0;z-index:99999;background:#fff;display:flex;flex-direction:column';
+  let isImage=n.file&&n.file.startsWith('data:image');let isPdf=n.file&&n.file.startsWith('data:application/pdf');
+  let contentHtml='';
+  if(isImage){contentHtml=`<div style="flex:1;overflow:auto;padding:10px;text-align:center;background:#000"><img src="${n.file}" style="max-width:100%;max-height:85vh;border-radius:8px"><br><br><p style="color:#fff">${n.t}<br>${n.sample}</p></div>`;}
+  else if(isPdf){contentHtml=`<div style="flex:1;display:flex;flex-direction:column"><iframe src="${n.file}" style="flex:1;border:none;width:100%"></iframe><div style="padding:8px;background:#f0f2f5"><small>${n.t} - ${n.sample}</small></div></div>`;}
+  else{contentHtml=`<div style="flex:1;overflow:auto;padding:14px"><h3>${n.t}</h3><p style="white-space:pre-wrap;margin-top:10px">${n.c}<br><br>${n.sample}</p>${n.file?`<br><br><a href="${n.file}" download="${n.fileName}" style="background:#000;color:#fff;padding:10px 20px;border-radius:20px;display:inline-block;text-decoration:none">📥 Download ${n.fileName}</a>`:''}</div>`;}
+  modal.innerHTML=`<div style="background:#000;color:#fff;padding:10px;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:12px">📖 ${n.t} ${n.hot?'🔥':''}</b><br><small style="font-size:8px;color:#FFCC00">FREE Read • ${n.views} views</small></div><button onclick="closeReader()" style="background:#fff;color:#000;border:none;padding:8px 14px;border-radius:20px;font-weight:bold">✕ Close</button></div>${contentHtml}<div style="background:#111;color:#fff;padding:8px;display:flex;gap:5px;justify-content:center"><button onclick="payForDownload(${i})" style="background:gold;color:#000;border:none;padding:8px 14px;border-radius:20px;font-weight:bold">💾 Download ${n.price} UGX</button><button onclick="closeReader()" style="background:#fff;color:#000;border:none;padding:8px 14px;border-radius:20px">Close</button></div>`;
+  document.body.appendChild(modal);
+  if(db){let tx=db.transaction('files','readwrite');tx.objectStore('files').put(n);}else{localStorage.setItem('ah_notes_text',JSON.stringify(window.allNotes));}
+}
+function closeReader(){let m=document.getElementById('readerModal');if(m) m.remove();}
+function saveTextNote(){let t=document.getElementById('noteTitle').value.trim();if(!t)return alert('Title?');let cls=document.getElementById('noteClass').value.trim();let c=document.getElementById('noteContent').value.trim()||'Text note';let note={id:Date.now(),t:(cls?cls+' - ':'')+t,c:c,sample:c.slice(0,80),price:1000,file:null,fileName:null,downloadUnlocked:false,views:0,hot:false,type:'text'};notesText.unshift(note);localStorage.setItem('ah_notes_text',JSON.stringify(notesText));window.allNotes=[note,...(window.allNotes||[])];window.allNotes.sort((a,b)=>(b.id||0)-(a.id||0));document.getElementById('noteTitle').value='';document.getElementById('noteClass').value='';document.getElementById('noteContent').value='';renderNotesFixed();showFireball();}
+function payForDownload(i){let n=(window.allNotes||[])[i];if(!n)return;if(n.downloadUnlocked){downloadFile(i);return;}closeReader();let phone=prompt(`💾 Download "${n.t}"\n\nPrice ${n.price} UGX to 0770816940 (admin receives)\n\nEnter YOUR MTN/Airtel number to pay from (256...):`);if(!phone)return;phone=phone.replace(/^0/,'256');unlockNote(i,phone,'DEMO'+Date.now());}
+function unlockNote(i,phone,ref){let all=window.allNotes||[];let n=all[i];if(!n)return;n.downloadUnlocked=true;n.views=(n.views||0)+1;if(n.views>2)n.hot=true;if(db){let tx=db.transaction('files','readwrite');tx.objectStore('files').put(n);}else{localStorage.setItem('ah_notes_text',JSON.stringify(window.allNotes));}earn+=500;localStorage.setItem('earn',earn);document.getElementById('earn').innerText=earn+' UGX';fireballs+=20;localStorage.setItem('ah_fire',fireballs);document.getElementById('fireCount').innerText='🔥 '+fireballs;renderNotesFixed();showFireball();downloadFile(i);}
+function downloadFile(i){let n=(window.allNotes||[])[i];if(!n.downloadUnlocked&&!isAdminPhone(myUser?.phone))return alert('Pay '+n.price+' UGX to download. Reading is FREE.');if(!n.file){let blob=new Blob([n.c],{type:'text/plain'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=n.t.replace(/[^a-z0-9]/gi,'_')+'.txt';a.click();URL.revokeObjectURL(url);return;}let a=document.createElement('a');a.href=n.file;a.download=n.fileName||n.t;a.click();}
+function deleteNoteFixed(i){if(!confirm('Delete this note?'))return;let all=window.allNotes||[];let n=all[i];if(n.file&&db){let tx=db.transaction('files','readwrite');tx.objectStore('files').delete(n.id);tx.oncomplete=()=>{all.splice(i,1);window.allNotes=all;renderNotesFixed();};}else{let idx=notesText.findIndex(x=>x.id===n.id);if(idx>=0)notesText.splice(idx,1);localStorage.setItem('ah_notes_text',JSON.stringify(notesText));window.allNotes=notesText;renderNotesFixed();}}
+function shareNote(i){let n=(window.allNotes||[])[i];let txt=`🎓 ACADEMIC HUNTERS 10X - ${n.t} ${n.hot?'🔥':''}\n\n📖 Read FREE - 💾 Download ${n.price} UGX to 0770816940\n\n👉 ${location.href}`;if(navigator.share){navigator.share({title:n.t,text:txt,url:location.href});}else{navigator.clipboard.writeText(txt);window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');}earn+=100;localStorage.setItem('earn',earn);document.getElementById('earn').innerText=earn+' UGX';}
+function shareHunter(){let txt=`🎓 ACADEMIC HUNTERS 10X 🇺🇬 - 23 AIs + Read FREE + Download\n\n👉 ${location.href}`;if(navigator.share){navigator.share({title:'ACADEMIC HUNTERS 10X',text:txt,url:location.href}).then(()=>{earn+=500;localStorage.setItem('earn',earn);document.getElementById('earn').innerText=earn+' UGX';showFireball();});}else{navigator.clipboard.writeText(txt);window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');}}
+function tab(m,btn){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('a'));btn.classList.add('a');if(m=='ai')renderAI();if(m=='friends')renderFriends();if(m=='notes')renderNotesFixed();if(m=='leader')renderLeader();if(m=='admin'){let u=myUser||{name:'Guest',phone:'-',status:'-',pic:''};let admin=isAdminPhone(u.phone);document.getElementById('searchBar').style.display='none';document.getElementById('filterBar').style.display='none';document.getElementById('list').innerHTML=`<div style="padding:8px;font-size:9px"><div style="text-align:center"><div class="av" style="width:55px;height:55px;margin:0 auto;background:#000;font-size:18px">${u.pic?'<img src="'+u.pic+'">':u.name.slice(0,2)}</div><br><b>${u.name}</b><br><small>${u.phone} • ${u.status}</small><br><small>📍 ${myLoc}</small><br><small>🔥 ${fireballs} • 📚 ${studied.length} Studied • ⭐ ${bookmarks.length} Saved</small><br>${admin?'<span style="background:#000;color:#FFCC00;padding:2px 6px;border-radius:10px;font-size:7px">👑 ADMIN</span>':'<span style="background:#eee;padding:2px 6px;border-radius:10px">Hunter</span>'}</div><br><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px"><div style="background:#f0f2f5;padding:8px;border-radius:8px;text-align:center"><b style="font-size:13px">${earn}</b><br><small>UGX</small></div><div style="background:#FFCC00;padding:8px;border-radius:8px;text-align:center"><b>${(window.allNotes||[]).length}</b><br><small>Notes</small></div></div><br><button class=b style="width:100%;background:#000" onclick="shareHunter()">↗️ Share & Earn 500</button><br><br><button class=b style="width:100%;background:red" onclick="logout()">🚪 Logout</button></div>`;}}
+let fireballs=parseInt(localStorage.getItem('ah_fire')||'0');let streak=parseInt(localStorage.getItem('ah_streak')||'1');let lastLogin=localStorage.getItem('ah_lastLogin')||'';let today=new Date().toDateString();if(lastLogin!==today){if(lastLogin){let y=new Date();y.setDate(y.getDate()-1);if(lastLogin===y.toDateString()){streak++;}else{streak=1;}}localStorage.setItem('ah_streak',streak);localStorage.setItem('ah_lastLogin',today);fireballs+=streak*10;localStorage.setItem('ah_fire',fireballs);}document.getElementById('fireCount').innerText='🔥 '+fireballs;document.getElementById('streakText').innerText='🔥 '+streak+' Day';document.getElementById('studiedCount').innerText='📚 '+studied.length+' Studied';
+function showFireball(){let f=document.createElement('div');f.className='fireball';f.innerText='🔥';document.body.appendChild(f);setTimeout(()=>f.remove(),1200);}
+function claimFireball(){fireballs+=50;streak++;localStorage.setItem('ah_fire',fireballs);localStorage.setItem('ah_streak',streak);document.getElementById('fireCount').innerText='🔥 '+fireballs;document.getElementById('streakText').innerText='🔥 '+streak+' Day';showFireball();earn+=100;localStorage.setItem('earn',earn);document.getElementById('earn').innerText=earn+' UGX';}
+function openA(id){curMode='ai';cur=AIs.find(a=>a.id==id);document.getElementById('title').innerText=cur.n;document.getElementById('av').innerText=cur.a;document.getElementById('av').style.background=cur.c;document.getElementById('sub').innerText='● Online • '+cur.s;let ch=document.getElementById('chat');ch.innerHTML='';(chats[id]||[]).forEach(m=>{ch.innerHTML+=`<div class="m ${m.f=='me'?'mm':'mai'}">${m.t}</div>`});document.getElementById('rightPanel').classList.add('open');ch.scrollTop=ch.scrollHeight;}
+function openFriend(i){curMode='friend';cur=friends[i];document.getElementById('title').innerText=cur.name;document.getElementById('av').innerHTML=cur.pic?'<img src="'+cur.pic+'">':cur.name.slice(0,2);document.getElementById('av').style.background='#075e54';document.getElementById('sub').innerText='📍 '+cur.loc+' • '+cur.phone;let ch=document.getElementById('chat');ch.innerHTML=`<div class="m mo">📍 ${cur.name} at ${cur.loc}<br>📞 ${cur.phone}</div>`;if(cur.chat){cur.chat.forEach(m=>{ch.innerHTML+=`<div class="m ${m.me?'mm':'mo'}">${m.t}</div>`});}document.getElementById('rightPanel').classList.add('open');ch.scrollTop=ch.scrollHeight;}
+function closeChat(){document.getElementById('rightPanel').classList.remove('open');}
+function addFriend(){let name=document.getElementById('fn').value;if(!name)return alert('Name?');let phone=document.getElementById('fp').value||'07...';let loc=document.getElementById('fl').value||myLoc;let file=document.getElementById('fPic').files[0];let save=(pic)=>{friends.push({name,phone,loc,pic:pic||'',isGroup:false,chat:[]});localStorage.setItem('ah_friends',JSON.stringify(friends));renderFriends();};if(file){let r=new FileReader();r.onload=e=>save(e.target.result);r.readAsDataURL(file);}else save('');}
+function createGroup(){let name=prompt('Group name:');if(!name)return;friends.push({name,phone:'Group',loc:'Uganda',isGroup:true,chat:[]});localStorage.setItem('ah_friends',JSON.stringify(friends));renderFriends();}
+async function send(){let inp=document.getElementById('inp');if(!inp.value.trim())return;let txt=inp.value;inp.value='';let ch=document.getElementById('chat');if(curMode==='ai'){ch.innerHTML+=`<div class="m mm">${txt}</div>`;chats[cur.id].push({f:'me',t:txt});ch.scrollTop=ch.scrollHeight;document.getElementById('think').style.display='block';try{let r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:`You are ${cur.n}, ${cur.p} ACADEMIC HUNTERS Uganda.`},{role:'user',content:txt}],stream:false})});let d=await r.json();let t=d.choices?.[0]?.message?.content||'';if(t){document.getElementById('think').style.display='none';ch.innerHTML+=`<div class="m mai"><b>${cur.n}:</b> ${t.slice(0,1000)}</div>`;chats[cur.id].push({f:'ai',t:t});ch.scrollTop=ch.scrollHeight;earn+=5;localStorage.setItem('earn',earn);document.getElementById('earn').innerText=earn+' UGX';return;}}catch(e){}setTimeout(()=>{document.getElementById('think').style.display='none';ch.innerHTML+=`<div class="m mai"><b>${cur.n}:</b> You said "${txt}" — I predicted!</div>`;ch.scrollTop=ch.scrollHeight;},500);}else{ch.innerHTML+=`<div class="m mm">${txt}</div>`;cur.chat.push({t:txt,me:true});ch.scrollTop=ch.scrollHeight;localStorage.setItem('ah_friends',JSON.stringify(friends));setTimeout(()=>{let rp=`Seen ✓✓ - ${cur.name} offline`;ch.innerHTML+=`<div class="m mo">${rp}</div>`;cur.chat.push({t:rp,me:false});localStorage.setItem('ah_friends',JSON.stringify(friends));ch.scrollTop=ch.scrollHeight;},600);}}
+function makeCall(v){if(curMode!=='friend'){alert('Open Friend first');return;}friendCall(friends.indexOf(cur),v);}
+function friendCall(i,v){if(i<0)return;let f=friends[i];document.getElementById('callScreen').classList.add('open');document.getElementById('callName').innerText=(v?'Video':'Voice')+' DATA to '+f.name;document.getElementById('callStat').innerText='📍 '+f.loc+' • '+f.phone;(async()=>{try{stream=await navigator.mediaDevices.getUserMedia({video:v,audio:true});document.getElementById('localV').srcObject=stream;document.getElementById('remoteV').srcObject=stream;}catch(e){alert('Allow camera/mic');endCall();}})();}
+function endCall(){document.getElementById('callScreen').classList.remove('open');if(stream)stream.getTracks().forEach(t=>t.stop());}
+function toggleMute(){if(!stream)return;stream.getAudioTracks().forEach(t=>t.enabled=!t.enabled);}
+function installApp(){alert('Chrome → 3 dots → Install app');}
+document.getElementById('inp').addEventListener('keypress',e=>{if(e.key==='Enter')send();});
+renderAI();openA(1);closeChat();loadNotes();
+</script></body></html>
