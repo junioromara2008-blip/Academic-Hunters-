@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       : [];
 
     const response = await fetch(
-      "https://api.openai.com/v1/responses",
+      "https://api.openai.com/v1/chat/completions",
       {
         method: "POST",
         headers: {
@@ -36,17 +36,19 @@ export default async function handler(req, res) {
           "Authorization": `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: "gpt-5-mini",
-          instructions:
-            "You are Academic Hunters AI. Help students understand school subjects clearly and step by step. Use simple educational language. Do not help students cheat in live examinations.",
-          input: [
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are Academic Hunters AI. Help students understand school subjects clearly and step by step. Use simple educational language. Do not help students cheat in live examinations."
+            },
             ...safeHistory,
             {
               role: "user",
               content: message.trim().slice(0, 4000)
             }
           ],
-          max_output_tokens: 1200
+          max_tokens: 1200
         })
       }
     );
@@ -62,7 +64,7 @@ export default async function handler(req, res) {
     }
 
     return res.status(200).json({
-      text: data.output_text || "Sorry, I could not generate an answer."
+      text: data.choices[0]?.message?.content || "Sorry, I could not generate an answer."
     });
 
   } catch (error) {
