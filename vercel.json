@@ -3,9 +3,6 @@
   "public": false,
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "env": {
-    "OPENAI_API_KEY": "@openai_api_key"
-  },
   "functions": {
     "api/chat.js": {
       "memory": 1024,
@@ -66,11 +63,5 @@
       "destination": "/api/$1"
     }
   ],
-  "regions": ["iad"],
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ]
+  "regions": ["iad"]
 }
