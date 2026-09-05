@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
     const safeHistory = Array.isArray(history)
       ? history.slice(-10).map(item => ({
-          role: item.role,
+          role: item.role === "assistant" ? "assistant" : "user",
           content: String(item.content || "").slice(0, 3000)
         }))
       : [];
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
           "Authorization": `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: "gpt-5.6-luna",
+          model: "gpt-5-mini",
           instructions:
             "You are Academic Hunters AI. Help students understand school subjects clearly and step by step. Use simple educational language. Do not help students cheat in live examinations.",
           input: [
@@ -54,19 +54,19 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
+      console.error("OpenAI error:", data);
+
       return res.status(response.status).json({
         error: data?.error?.message || "AI service error."
       });
     }
 
     return res.status(200).json({
-      text:
-        data.output_text ||
-        "Sorry, I could not generate an answer."
+      text: data.output_text || "Sorry, I could not generate an answer."
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Server error:", error);
 
     return res.status(500).json({
       error: "AI server error. Please try again."
