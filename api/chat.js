@@ -1,16 +1,28 @@
+/**
+ * Updated chat endpoint with security enhancements
+ * - Input sanitization
+ * - Rate limiting
+ * - Token verification
+ * - Error handling
+ */
+
+import { verifyToken, requireAuth } from '../middleware/auth.js';
+import { sanitizeInput, checkRateLimit } from '../../utils/validation.js';
+import fetch from 'node-fetch';
+
+const API_KEY = process.env.OPENAI_API_KEY;
+const RATE_LIMIT_MAX = 50; // Lower limit for AI requests
+const RATE_LIMIT_WINDOW = 3600000; // 1 hour
+
 export default async function handler(req, res) {
-  // Set CORS headers
+  // CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+  res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGINS || '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
 
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
 
   if (req.method !== 'POST') {
@@ -18,128 +30,130 @@ export default async function handler(req, res) {
   }
 
   try {
-    const apiKey = process.env.OPENAI_API_KEY;
+    // Verify authentication
+    let user;
+    try {
+      user = verifyToken(req);
+    } catch (error) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
 
-    if (!apiKey) {
-      console.error('OPENAI_API_KEY is not configured on Vercel');
-      return res.status(500).json({
-        error: 'OPENAI_API_KEY is not configured. Contact administrator.'
+    // Rate limiting per user
+    const rateLimitKey = `chat:${user.userId}`;
+    const rateLimit = await checkRateLimit(rateLimitKey, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);
+
+    if (!rateLimit.allowed) {
+      return res.status(429).json({
+        error: 'Too many requests. Please try again later.',
+        retryAfter: Math.ceil((rateLimit.resetTime - Date.now()) / 1000),
       });
     }
 
+    // Validate API key
+    if (!API_KEY) {
+      console.error('OPENAI_API_KEY not configured');
+      return res.status(500).json({
+        error: 'AI service not configured',
+      });
+    }
+
+    // Extract and sanitize input
     const { message, history = [], assistant = '', subject = '' } = req.body || {};
 
     if (!message || typeof message !== 'string') {
       return res.status(400).json({
-        error: 'Please enter a message.'
+        error: 'Message is required',
       });
     }
 
-    if (message.trim().length === 0) {
+    // Sanitize user input
+    const cleanMessage = sanitizeInput(message);
+    if (!cleanMessage) {
       return res.status(400).json({
-        error: 'Message cannot be empty.'
+        error: 'Message cannot be empty',
       });
     }
 
     // Validate and sanitize history
     const safeHistory = Array.isArray(history)
-      ? history.slice(-10).map(item => ({
+      ? history.slice(-10).map((item) => ({
           role: item.role === 'assistant' ? 'assistant' : 'user',
-          content: String(item.content || '').trim().slice(0, 3000)
+          content: sanitizeInput(item.content || ''),
         }))
       : [];
 
-    // Create system prompt based on AI personality
-    let systemPrompt = 'You are Academic Hunters AI, a helpful educational tutor. Help students understand school subjects clearly and step by step. Use simple, educational language appropriate for secondary school students. Do not help students cheat in live exams. Focus on teaching and explanation.';
-    
+    // Create educational system prompt
+    let systemPrompt =
+      'You are Academic Hunters AI, a helpful educational tutor. Help students understand school subjects clearly and step by step. Use simple, educational language appropriate for students. Do not help with exam cheating or homework completion - focus on teaching concepts.';
+
     if (assistant && subject) {
-      systemPrompt = `You are ${assistant}, a ${subject} tutor at Academic Hunters. Help students understand ${subject} clearly and step by step. Use simple educational language. Do not help students cheat in live exams. Focus on teaching and building understanding.`;
+      systemPrompt = `You are ${sanitizeInput(assistant)}, a ${sanitizeInput(subject)} tutor at Academic Hunters. Help students understand ${sanitizeInput(subject)} clearly and step by step. Use simple educational language. Do not help students cheat on exams.`;
     }
 
-    // Make request to OpenAI API
-    const response = await fetch(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-4-turbo',
-          messages: [
-            {
-              role: 'system',
-              content: systemPrompt
-            },
-            ...safeHistory,
-            {
-              role: 'user',
-              content: message.trim().slice(0, 4000)
-            }
-          ],
-          max_tokens: 1200,
-          temperature: 0.7
-        })
-      }
-    );
+    // Call OpenAI API
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo', // Using cheaper model
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...safeHistory,
+          { role: 'user', content: cleanMessage },
+        ],
+        max_tokens: 1200,
+        temperature: 0.7,
+      }),
+    });
 
     const data = await response.json();
 
     if (!response.ok) {
       console.error('OpenAI API error:', data);
 
-      // Handle specific OpenAI errors
       if (data?.error?.code === 'invalid_api_key') {
         return res.status(401).json({
-          error: 'API key is invalid. Contact administrator.'
+          error: 'API configuration error',
         });
       }
 
       if (data?.error?.code === 'rate_limit_exceeded') {
         return res.status(429).json({
-          error: 'Too many requests. Please try again in a moment.'
+          error: 'AI service rate limited. Please try again in a moment.',
         });
       }
 
-      if (data?.error?.code === 'context_length_exceeded') {
-        return res.status(400).json({
-          error: 'Message is too long. Please shorten your input.'
-        });
-      }
-
-      return res.status(response.status).json({
-        error: data?.error?.message || 'AI service error. Please try again.'
+      return res.status(response.status || 500).json({
+        error: 'AI service error. Please try again.',
       });
     }
 
     const answer = data.choices[0]?.message?.content || 'Sorry, I could not generate an answer.';
 
     return res.status(200).json({
-      text: answer
+      text: sanitizeInput(answer),
+      tokensUsed: data.usage?.total_tokens || 0,
     });
-
   } catch (error) {
-    console.error('Server error:', error);
+    console.error('Chat error:', error);
 
-    // Handle network errors
     if (error.message.includes('fetch failed')) {
       return res.status(503).json({
-        error: 'Cannot reach AI service. Please check your internet connection.'
+        error: 'Cannot reach AI service. Check your connection.',
       });
     }
 
-    // Generic error response
     return res.status(500).json({
-      error: 'Server error. Please try again later.'
+      error: 'Server error. Please try again later.',
     });
   }
 }
 
 export const config = {
   api: {
-    bodyParser: {
-      sizeLimit: '4mb'
-    }
-  }
+    bodyParser: { sizeLimit: '4mb' },
+  },
 };

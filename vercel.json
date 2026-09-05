@@ -1,14 +1,57 @@
 {
   "version": 2,
+  "buildCommand": "echo 'Build complete'",
+  "public": true,
   "functions": {
+    "api/auth/*.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
     "api/chat.js": {
       "memory": 1024,
       "maxDuration": 30
     },
+    "api/notes.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "api/payment.js": {
+      "memory": 512,
+      "maxDuration": 30
+    },
+    "api/download.js": {
+      "memory": 512,
+      "maxDuration": 15
+    },
     "api/upload.js": {
+      "memory": 512,
+      "maxDuration": 10
+    },
+    "api/bookmarks.js": {
+      "memory": 512,
+      "maxDuration": 10
+    },
+    "api/likes.js": {
       "memory": 512,
       "maxDuration": 10
     }
   },
-  "regions": ["iad"]
+  "regions": ["iad"],
+  "env": [
+    "OPENAI_API_KEY",
+    "FIREBASE_API_KEY",
+    "FIREBASE_AUTH_DOMAIN",
+    "FIREBASE_PROJECT_ID",
+    "FIREBASE_STORAGE_BUCKET",
+    "FIREBASE_MESSAGING_SENDER_ID",
+    "FIREBASE_APP_ID",
+    "FIREBASE_DATABASE_URL",
+    "FIREBASE_SERVICE_ACCOUNT",
+    "JWT_SECRET",
+    "MOMO_API_KEY",
+    "MOMO_MERCHANT_ID",
+    "ALLOWED_ORIGINS",
+    "RATE_LIMIT_WINDOW_MS",
+    "RATE_LIMIT_MAX_REQUESTS"
+  ]
 }
