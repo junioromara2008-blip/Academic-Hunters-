@@ -186,7 +186,101 @@ function openFriend(i){curMode='friend';cur=friends[i];document.getElementById('
 function closeChat(){document.getElementById('rightPanel').classList.remove('open');}
 function addFriend(){let name=document.getElementById('fn').value;if(!name)return alert('Name?');let phone=document.getElementById('fp').value||'07...';let loc=document.getElementById('fl').value||myL[...]
 function createGroup(){let name=prompt('Group name:');if(!name)return;friends.push({name,phone:'Group',loc:'Uganda',isGroup:true,chat:[]});localStorage.setItem('ah_friends',JSON.stringify(friends));re[...]
-async function send(){let inp=document.getElementById('inp');if(!inp.value.trim())return;let txt=inp.value;inp.value='';let ch=document.getElementById('chat');if(curMode==='ai'){ch.innerHTML+=`<div class="m mm">${txt}</div>`;chats[cur.id].push({f:'me',t:txt});ch.scrollTop=ch.scrollHeight;document.getElementById('think').style.display='block';try{let r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:`You are ${cur.n}, ${cur.p} ACADEMIC HUNTERS Uganda.`},{role:'user',content:txt}],stream:false})});let d=await r.json();let t=d.choices?.[0]?.message?.content||'';if(t){document.getElementById('think').style.display='none';ch.innerHTML+=`<div class="m mai"><b>${cur.n}:</b> ${t.slice(0,1000)}</div>`;chats[cur.id].push({f:'ai',t:t});ch.scrollTop=ch.scrollHeight;earn+=5;localStorage.setItem('earn',earn);document.getElementById('earn').innerText=earn+' UGX';return;}}catch(e){}setTimeout(()=>{document.getElementById('think').style.display='none';ch.innerHTML+=`<div class="m mai"><b>${cur.n}:</b> You said "${txt}" — I predicted!</div>`;ch.scrollTop=ch.scrollHeight;},500);}else{ch.innerHTML+=`<div class="m mm">${txt}</div>`;cur.chat.push({t:txt,me:true});ch.scrollTop=ch.scrollHeight;localStorage.setItem('ah_friends',JSON.stringify(friends));setTimeout(()=>{let rp=`Seen ✓✓ - ${cur.name} offline`;ch.innerHTML+=`<div class="m mo">${rp}</div>`;cur.chat.push({t:rp,me:false});localStorage.setItem('ah_friends',JSON.stringify(friends));ch.scrollTop=ch.scrollHeight;},600);}}
+async function send(){
+  const inp=document.getElementById('inp');
+  const txt=inp.value.trim();
+  if(!txt)return;
+
+  inp.value='';
+  const ch=document.getElementById('chat');
+
+  if(curMode==='ai'){
+    ch.innerHTML+=`<div class="m mm">${escapeHTML(txt)}</div>`;
+    chats[cur.id]=chats[cur.id]||[];
+    chats[cur.id].push({f:'me',t:txt});
+    ch.scrollTop=ch.scrollHeight;
+
+    document.getElementById('think').style.display='block';
+
+    try{
+      const history=chats[cur.id]
+        .slice(-10)
+        .map(m=>({
+          role:m.f==='me'?'user':'assistant',
+          content:m.t
+        }));
+
+      const r=await fetch('/api/chat',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          message:txt,
+          history:history,
+          assistant:cur.n,
+          subject:cur.s
+        })
+      });
+
+      const d=await r.json();
+
+      if(!r.ok){
+        throw new Error(d.error||'AI request failed');
+      }
+
+      const answer=d.text||'Sorry, I could not generate an answer.';
+
+      document.getElementById('think').style.display='none';
+
+      ch.innerHTML+=`
+        <div class="m mai">
+          <b>${escapeHTML(cur.n)}:</b> ${escapeHTML(answer)}
+        </div>`;
+
+      chats[cur.id].push({f:'ai',t:answer});
+      ch.scrollTop=ch.scrollHeight;
+
+      earn+=5;
+      localStorage.setItem('earn',earn);
+      document.getElementById('earn').innerText=earn+' UGX';
+
+    }catch(error){
+      document.getElementById('think').style.display='none';
+
+      ch.innerHTML+=`
+        <div class="m mai">
+          <b>Academic Hunters AI:</b>
+          Sorry, the AI is temporarily unavailable. Please try again.
+        </div>`;
+
+      console.error(error);
+    }
+
+  }else{
+    ch.innerHTML+=`<div class="m mm">${escapeHTML(txt)}</div>`;
+    cur.chat=cur.chat||[];
+    cur.chat.push({t:txt,me:true});
+    ch.scrollTop=ch.scrollHeight;
+
+    localStorage.setItem('ah_friends',JSON.stringify(friends));
+
+    setTimeout(()=>{
+      let rp=`Seen ✓✓ - ${cur.name} offline`;
+      ch.innerHTML+=`<div class="m mo">${escapeHTML(rp)}</div>`;
+      cur.chat.push({t:rp,me:false});
+      localStorage.setItem('ah_friends',JSON.stringify(friends));
+      ch.scrollTop=ch.scrollHeight;
+    },600);
+  }
+}
+
+function escapeHTML(text){
+  return String(text)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
 function makeCall(v){if(curMode!=='friend'){alert('Open Friend first');return;}friendCall(friends.indexOf(cur),v);}
 function friendCall(i,v){if(i<0)return;let f=friends[i];document.getElementById('callScreen').classList.add('open');document.getElementById('callName').innerText=(v?'Video':'Voice')+' DATA to '+f.name[...]
 function endCall(){document.getElementById('callScreen').classList.remove('open');if(stream)stream.getTracks().forEach(t=>t.stop());}
