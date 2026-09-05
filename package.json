@@ -1,13 +1,42 @@
 {
   "name": "academic-hunters",
   "version": "1.0.0",
+  "description": "AI-powered educational platform for students in Uganda",
+  "author": "Junior Omara",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/junioromara2008-blip/Academic-Hunters-"
+  },
+  "homepage": "https://academic-hunters.vercel.app",
   "private": true,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "dev": "vercel dev",
-    "build": "vercel build"
+    "build": "vercel build",
+    "start": "vercel start",
+    "lint": "echo 'No linter configured'",
+    "test": "echo 'No tests configured'",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "node-fetch": "^2.6.7",
-    "multer": "^1.4.5-lts.1"
-  }
+    "multer": "^1.4.5-lts.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "education",
+    "learning",
+    "ai",
+    "tutoring",
+    "uganda",
+    "students",
+    "study-notes",
+    "openai",
+    "vercel"
+  ]
 }
